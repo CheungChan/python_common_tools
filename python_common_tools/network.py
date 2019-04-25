@@ -13,12 +13,15 @@ class IRequest:
     RETRY_TIMES = 3
 
     @classmethod
-    def secure_get_json(cls, url, params=None, timeout=10, log_err=False):
+    def secure_requests_json(cls, url, method='get', timeout=10, log_err=False, *args, **kwargs):
         retry = IRequest.RETRY_TIMES
         j = {}
         while True:
             try:
-                response = requests.get(url, params=params, timeout=timeout)
+                if method == 'get':
+                    response = requests.get(url, timeout=timeout, *args, **kwargs)
+                else:
+                    response = requests.post(url, timeout=timeout, *args, **kwargs)
                 j = response.json()
                 break
             except ReadTimeout as e:
@@ -28,7 +31,7 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},params={params} ReadTimeout retrying {retry}")
+                logger.error(f"url={url},kwargs={kwargs} ReadTimeout retrying {retry}")
             except ConnectionError as e:
                 if log_err:
                     logger.exception(e)
@@ -36,7 +39,7 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},params={params} ConnectionError retrying {retry}")
+                logger.error(f"url={url},kwargs={kwargs} ConnectionError retrying {retry}")
             except JSONDecodeError as e:
                 if log_err:
                     logger.exception(e)
@@ -44,16 +47,19 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},params={params} JSONDecodeError retrying {retry}")
+                logger.error(f"url={url},kwargs={kwargs} JSONDecodeError retrying {retry}")
         return j
 
     @classmethod
-    def secure_get(cls, url, params=None, timeout=10, log_err=False):
+    def secure_requests(cls, url, method='get', timeout=10, log_err=False, **kwargs):
         retry = IRequest.RETRY_TIMES
         response = None
         while True:
             try:
-                response = requests.get(url, params=params, timeout=timeout)
+                if method == 'get':
+                    response = requests.get(url, timeout=timeout, **kwargs)
+                else:
+                    response = requests.post(url, timeout=timeout, **kwargs)
                 break
             except ReadTimeout as e:
                 if log_err:
@@ -62,7 +68,7 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},params={params} ReadTimeout retrying {retry}")
+                logger.error(f"url={url},kwargs={kwargs} ReadTimeout retrying {retry}")
             except ConnectionError as e:
                 if log_err:
                     logger.exception(e)
@@ -70,9 +76,9 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},params={params} ConnectionError retrying {retry}")
+                logger.error(f"url={url},kwargs={kwargs} ConnectionError retrying {retry}")
         return response
 
 
-secure_get_json = IRequest.secure_get_json
-secure_get = IRequest.secure_get
+secure_requests_json = IRequest.secure_requests_json
+secure_requests = IRequest.secure_requests
