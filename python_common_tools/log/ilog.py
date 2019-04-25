@@ -8,6 +8,7 @@ import logzero
 
 class ILog:
     @classmethod
-    def setup_logger(cls, logfile, maxBytes=10_000, backupCount=3):
-        logzero.logfile(logfile, maxBytes=maxBytes, backupCount=backupCount, encoding='utf-8')
+    def setup_logger(cls, logfile=None, maxBytes=10_000, backupCount=3):
+        if logfile:
+            logzero.logfile(logfile, maxBytes=maxBytes, backupCount=backupCount, encoding='utf-8')
         return logger

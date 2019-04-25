@@ -13,7 +13,7 @@ class IRequest:
     RETRY_TIMES = 3
 
     @classmethod
-    def secure_get_json(cls, url, params, timeout=10, log_err=False):
+    def secure_get_json(cls, url, params=None, timeout=10, log_err=False):
         retry = IRequest.RETRY_TIMES
         j = {}
         while True:
@@ -48,7 +48,7 @@ class IRequest:
         return j
 
     @classmethod
-    def secure_get(cls, url, params, timeout=10, log_err=False):
+    def secure_get(cls, url, params=None, timeout=10, log_err=False):
         retry = IRequest.RETRY_TIMES
         response = None
         while True:
