@@ -12,3 +12,6 @@ class ILog:
         if logfile:
             logzero.logfile(logfile, maxBytes=maxBytes, backupCount=backupCount, encoding='utf-8')
         return logger
+
+
+setup_logger = ILog.setup_logger

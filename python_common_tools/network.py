@@ -72,3 +72,7 @@ class IRequest:
                     break
                 logger.error(f"url={url},params={params} ConnectionError retrying {retry}")
         return response
+
+
+secure_get_json = IRequest.secure_get_json
+secure_get = IRequest.secure_get

@@ -2,10 +2,14 @@
 __author__ = '陈章'
 __date__ = '2019-04-25 10:58'
 
+import os
+import time
+import shutil
+import unittest
+
+from python_common_tools.cache import cache_function
 from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_get, secure_get_json
-import unittest
-import os
 
 
 class TestLog(unittest.TestCase):
@@ -19,6 +23,10 @@ class TestLog(unittest.TestCase):
         logger = setup_logger("test.log")
         logger.info("hello")
         logger.error("no")
+        with open("test.log") as f:
+            s = f.read()
+            logger.info(f"The length of the logger file is {len(s)}")
+            self.assertGreater(len(s), 0)
         os.remove("test.log")
 
 
@@ -38,6 +46,31 @@ class TestNetwork(unittest.TestCase):
         url = 'https://www.baidu.com/'
         r = secure_get(url)
         self.logger.info(r.status_code)
+
+
+class TestCache(unittest.TestCase):
+
+    @cache_function
+    def f(self, a, b, c):
+        time.sleep(3)
+        return a + b + c
+
+    def test_cache_function(self):
+        begin = time.time()
+        r1 = self.f(1, 2, 3)
+        end = time.time()
+        t1 = end - begin
+        begin = time.time()
+
+        r2 = self.f(1, 2, 3)
+        shutil.rmtree("TestCache.f")
+        end = time.time()
+        t2 = end - begin
+        self.assertEqual(r1, 6)
+        self.assertEqual(r2, 6)
+        self.assertGreater(t1, t2)
+        self.assertAlmostEqual(t1, 3.0, places=0)
+        self.assertNotAlmostEqual(t2, 3.0, places=0)
 
 
 if __name__ == '__main__':
