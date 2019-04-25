@@ -43,6 +43,7 @@ class IRequest:
             except JSONDecodeError as e:
                 if log_err:
                     logger.exception(e)
+                logger.error(f"text={response.text}")
                 time.sleep(2)
                 retry -= 1
                 if retry < 0:
