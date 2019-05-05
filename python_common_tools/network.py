@@ -5,6 +5,7 @@ import time
 from json.decoder import JSONDecodeError
 
 import requests
+import stackprinter
 from logzero import logger
 from requests.exceptions import ReadTimeout, ConnectionError
 
@@ -26,7 +27,7 @@ class IRequest:
                 break
             except ReadTimeout as e:
                 if log_err:
-                    logger.exception(e)
+                    logger.error(stackprinter.format(e))
                 time.sleep(2)
                 retry -= 1
                 if retry < 0:
@@ -34,7 +35,7 @@ class IRequest:
                 logger.error(f"url={url},kwargs={kwargs} ReadTimeout retrying {retry}")
             except ConnectionError as e:
                 if log_err:
-                    logger.exception(e)
+                    logger.error(stackprinter.format(e))
                 time.sleep(2)
                 retry -= 1
                 if retry < 0:
@@ -42,7 +43,7 @@ class IRequest:
                 logger.error(f"url={url},kwargs={kwargs} ConnectionError retrying {retry}")
             except JSONDecodeError as e:
                 if log_err:
-                    logger.exception(e)
+                    logger.error(stackprinter.format(e))
                 logger.error(f"text={response.text}")
                 time.sleep(2)
                 retry -= 1
@@ -64,7 +65,7 @@ class IRequest:
                 break
             except ReadTimeout as e:
                 if log_err:
-                    logger.exception(e)
+                    logger.error(stackprinter.format(e))
                 time.sleep(2)
                 retry -= 1
                 if retry < 0:
@@ -72,7 +73,7 @@ class IRequest:
                 logger.error(f"url={url},kwargs={kwargs} ReadTimeout retrying {retry}")
             except ConnectionError as e:
                 if log_err:
-                    logger.exception(e)
+                    logger.error(stackprinter.format(e))
                 time.sleep(2)
                 retry -= 1
                 if retry < 0:
