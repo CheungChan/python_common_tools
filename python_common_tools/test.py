@@ -37,8 +37,7 @@ class TestNetwork(unittest.TestCase):
         self.logger = setup_logger()
 
     def test_secure_get_json(self):
-        sample = 'db86e47238e15af467abbe55003b7912c41a9b08baad9d1d6e831b5785e463b8'
-        url = f'https://s.threatbook.cn/api/v3/webpage/sandbox_type/{sample}'
+        url = 'https://m.douban.com/j/puppy/frodo_landing?include=anony_home'
         j = secure_requests_json(url)
         self.logger.info(j)
         self.assertIsNotNone(j)
