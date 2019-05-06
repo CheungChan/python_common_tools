@@ -88,5 +88,9 @@ class TestLinux(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+def main():
     unittest.main()
+
+
+if __name__ == '__main__':
+    main()
