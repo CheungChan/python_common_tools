@@ -1,7 +1,11 @@
 ## 一些常用的python工具箱
 
+#### 安装
+```bash
+pip3 install python_common_tools 
+```
 
-
+#### 使用
 ```python
 
 # 使得函数使用缓存
