@@ -8,8 +8,6 @@ import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
 
 setup(
     name='python_common_tools',
@@ -18,7 +16,7 @@ setup(
     author_email='1377699408@qq.com',
     url='https://github.com/CheungChan/python_common_tools',
     description='python common tools',
-    long_description=long_description,
+    long_description="python common tools include cache compress linux log network",
     long_description_content_type="text/markdown",
     packages=['python_common_tools'],
     install_requires=[
