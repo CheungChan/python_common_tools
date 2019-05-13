@@ -13,7 +13,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='python_common_tools',
-    version='1.0.3',
+    version='1.0.4',
     author='chenzhang',
     author_email='1377699408@qq.com',
     url='https://github.com/CheungChan/python_common_tools',
