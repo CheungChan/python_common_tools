@@ -7,7 +7,8 @@ from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_compl
 
 class Parallel:
     @classmethod
-    def run_func_parallel(cls, func, func_args_list, callback_func, style="thread", max_workers=os.cpu_count()):
+    def run_func_parallel(cls, func, func_args_list, callback_func, callback_func_extra_kwargs, style="thread",
+                          max_workers=os.cpu_count()):
         """
         :param func: only support function, not method
         :param func_args_list:
@@ -30,7 +31,7 @@ class Parallel:
         i = 0
         for r in as_completed(tasks):
             i += 1
-            callback_func(i, r.result())
+            callback_func(i, r.result(), callback_func_extra_kwargs)
 
 
 run_func_parallel = Parallel.run_func_parallel

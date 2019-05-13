@@ -11,7 +11,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 setup(
     name='python_common_tools',
-    version='1.0.5',
+    version='1.0.6',
     author='chenzhang',
     author_email='1377699408@qq.com',
     url='https://github.com/CheungChan/python_common_tools',

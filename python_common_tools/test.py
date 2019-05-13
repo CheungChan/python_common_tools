@@ -96,8 +96,8 @@ def test_func2(i, j):
     return i * j
 
 
-def test_callback_func(i, r):
-    print(f"i={i},r={r}")
+def test_callback_func(i, r, callback_func_extra_kwargs):
+    print(f"i={i},r={r}, callback_func_extra_kwargs={callback_func_extra_kwargs}")
 
 
 class TestRunFuncParallel(unittest.TestCase):
@@ -106,18 +106,19 @@ class TestRunFuncParallel(unittest.TestCase):
 
     def test_run_func_parallel(self):
         func_args_list1 = list(range(10))
+        callback_func_extra_kwargs = {"a": "a", "b": "b"}
         self.logger.info("test func with one single param in thread style")
-        run_func_parallel(test_func1, func_args_list1, test_callback_func)
+        run_func_parallel(test_func1, func_args_list1, test_callback_func, callback_func_extra_kwargs)
 
         self.logger.info("test func with one single param in process style")
-        run_func_parallel(test_func1, func_args_list1, test_callback_func, style="process")
+        run_func_parallel(test_func1, func_args_list1, test_callback_func, callback_func_extra_kwargs, style="process")
 
         func_args_list2 = [(i, i) for i in range(10)]
         self.logger.info("test func with one more param in thread style")
-        run_func_parallel(test_func2, func_args_list2, test_callback_func)
+        run_func_parallel(test_func2, func_args_list2, test_callback_func, callback_func_extra_kwargs)
 
         self.logger.info("test func with one more param in process style")
-        run_func_parallel(test_func2, func_args_list2, test_callback_func, style="process")
+        run_func_parallel(test_func2, func_args_list2, test_callback_func, callback_func_extra_kwargs, style="process")
 
 
 def main():
