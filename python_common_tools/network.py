@@ -14,7 +14,7 @@ class IRequest:
     RETRY_TIMES = 3
 
     @classmethod
-    def secure_requests_json(cls, url, method='get', timeout=10, log_err=False, retry_times=None, *args, **kwargs):
+    def secure_requests_json(cls, url, method='get', timeout=10, log_err=True, retry_times=None, *args, **kwargs):
         retry = retry_times if retry_times else IRequest.RETRY_TIMES
         j = {}
         while True:
@@ -53,7 +53,7 @@ class IRequest:
         return j
 
     @classmethod
-    def secure_requests(cls, url, method='get', timeout=10, log_err=False, retry_times=None, **kwargs):
+    def secure_requests(cls, url, method='get', timeout=10, log_err=True, retry_times=None, **kwargs):
         retry = retry_times if retry_times else IRequest.RETRY_TIMES
         response = None
         while True:

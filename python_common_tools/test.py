@@ -3,14 +3,15 @@ __author__ = '陈章'
 __date__ = '2019-04-25 10:58'
 
 import os
-import time
 import shutil
+import time
 import unittest
 
 from python_common_tools.cache import cache_function
+from python_common_tools.linux import get_bash_output, get_latest_commit_id
 from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_requests, secure_requests_json
-from python_common_tools.linux import get_bash_output, get_latest_commit_id, open_remote_file
+from python_common_tools.parallel import run_func_parallel
 
 
 class TestLog(unittest.TestCase):
@@ -85,6 +86,38 @@ class TestLinux(unittest.TestCase):
 
     def test_open_remote_file(self):
         pass
+
+
+def test_func1(i):
+    return i
+
+
+def test_func2(i, j):
+    return i * j
+
+
+def test_callback_func(i, r):
+    print(f"i={i},r={r}")
+
+
+class TestRunFuncParallel(unittest.TestCase):
+    def setUp(self) -> None:
+        self.logger = setup_logger()
+
+    def test_run_func_parallel(self):
+        func_args_list1 = list(range(10))
+        self.logger.info("test func with one single param in thread style")
+        run_func_parallel(test_func1, func_args_list1, test_callback_func)
+
+        self.logger.info("test func with one single param in process style")
+        run_func_parallel(test_func1, func_args_list1, test_callback_func, style="process")
+
+        func_args_list2 = [(i, i) for i in range(10)]
+        self.logger.info("test func with one more param in thread style")
+        run_func_parallel(test_func2, func_args_list2, test_callback_func)
+
+        self.logger.info("test func with one more param in process style")
+        run_func_parallel(test_func2, func_args_list2, test_callback_func, style="process")
 
 
 def main():
