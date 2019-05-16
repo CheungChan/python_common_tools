@@ -14,7 +14,8 @@ else:
     long_description = "python common tools"
 setup(
     name='python_common_tools',
-    version='1.0.12',
+    version='1.0.13',
+    python_requires='>3.6.0',
     author='chenzhang',
     author_email='1377699408@qq.com',
     url='https://github.com/CheungChan/python_common_tools',
