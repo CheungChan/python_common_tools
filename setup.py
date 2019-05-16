@@ -3,20 +3,23 @@ __author__ = '陈章'
 __date__ = '2019-05-06 17:46'
 
 from setuptools import setup
-
+import os
 import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-
+if os.path.exists("README.md"):
+    long_description = open("README.md", "r", encoding='utf-8').read()
+else:
+    long_description = "python common tools"
 setup(
     name='python_common_tools',
-    version='1.0.9',
+    version='1.0.10',
     author='chenzhang',
     author_email='1377699408@qq.com',
     url='https://github.com/CheungChan/python_common_tools',
     description='python common tools',
-    long_description="python common tools include cache compress linux log network",
+    long_description=long_description,
     long_description_content_type="text/markdown",
     packages=['python_common_tools'],
     install_requires=[

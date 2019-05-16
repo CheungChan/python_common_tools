@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-python3 setup.py register sdist upload
+python setup.py sdist
+twine upload dist/*
