@@ -7,7 +7,7 @@ import shutil
 import time
 import unittest
 
-from python_common_tools.cache import cache_function
+from python_common_tools.cache import cache_function, cache_daily_function
 from python_common_tools.linux import get_bash_output, get_latest_commit_id
 from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_requests, secure_requests_json
@@ -51,8 +51,13 @@ class TestNetwork(unittest.TestCase):
 
 class TestCache(unittest.TestCase):
 
-    @cache_function
+    @cache_function('.')
     def f(self, a, b, c):
+        time.sleep(3)
+        return a + b + c
+
+    @cache_daily_function('.')
+    def f2(self, a, b, c):
         time.sleep(3)
         return a + b + c
 
@@ -65,6 +70,23 @@ class TestCache(unittest.TestCase):
 
         r2 = self.f(1, 2, 3)
         shutil.rmtree("TestCache.f")
+        end = time.time()
+        t2 = end - begin
+        self.assertEqual(r1, 6)
+        self.assertEqual(r2, 6)
+        self.assertGreater(t1, t2)
+        self.assertAlmostEqual(t1, 3.0, places=0)
+        self.assertNotAlmostEqual(t2, 3.0, places=0)
+
+    def test_cache_daily_function(self):
+        begin = time.time()
+        r1 = self.f2(1, 2, 3)
+        end = time.time()
+        t1 = end - begin
+        begin = time.time()
+
+        r2 = self.f2(1, 2, 3)
+        shutil.rmtree("TestCache.f2")
         end = time.time()
         t2 = end - begin
         self.assertEqual(r1, 6)
