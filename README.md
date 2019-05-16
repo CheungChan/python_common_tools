@@ -8,9 +8,10 @@ pip3 install python_common_tools
 #### 使用
 ```python
 
-# 使得函数使用缓存
+
 import time
 
+# 使得函数使用缓存
 from python_common_tools.cache import cache_function,cache_daily_function
 
 @cache_function('.')
