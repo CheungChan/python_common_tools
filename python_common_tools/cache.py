@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 __author__ = '陈章'
 __date__ = '2019-04-25 11:34'
+import inspect
 import os
 import pickle
 from datetime import datetime
 from functools import wraps
-from inspect import ismethod
 from urllib.parse import quote_plus
 
 from logzero import logger
@@ -22,7 +22,7 @@ class Cache:
             def inner(*args, **kwargs):
                 # prepare cache_file
                 fname = f.__qualname__
-                no_self_args = args[1:] if ismethod(f) else args
+                no_self_args = args[1:] if len(args) > 0 and inspect.isclass(type(args[0])) else args
                 argv_str = f'{quote_plus(str(no_self_args))}_{quote_plus(str(kwargs))}'
                 cache_dir_real = f'{cache_dir}/{fname}'
                 os.makedirs(cache_dir_real, exist_ok=True)
@@ -47,7 +47,7 @@ class Cache:
             def inner(*args, **kwargs):
                 # prepare cache file
                 fname = f.__qualname__
-                no_self_args = args[1:] if ismethod(f) else args
+                no_self_args = args[1:] if len(args) > 0 and inspect.isclass(type(args[0])) else args
                 today = datetime.now().strftime("%Y%m%d")
                 argv_str = f'{quote_plus(str(no_self_args))}_{quote_plus(str(kwargs))}'
                 cache_dir_real = f'{cache_dir}/{fname}/{today}'
