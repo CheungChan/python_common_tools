@@ -49,19 +49,47 @@ class TestNetwork(unittest.TestCase):
         self.logger.info(r.status_code)
 
 
+@cache_function('.')
+def f(a, b, c):
+    time.sleep(3)
+    return a + b + c
+
+
+@cache_daily_function('.')
+def f2(a, b, c):
+    time.sleep(3)
+    return a + b + c
+
+
 class TestCache(unittest.TestCase):
 
-    @cache_function('.')
+    @cache_function('.', is_method=True)
     def f(self, a, b, c):
         time.sleep(3)
         return a + b + c
 
-    @cache_daily_function('.')
+    @cache_daily_function('.', is_method=True)
     def f2(self, a, b, c):
         time.sleep(3)
         return a + b + c
 
     def test_cache_function(self):
+        begin = time.time()
+        r1 = f(1, 2, 3)
+        end = time.time()
+        t1 = end - begin
+        begin = time.time()
+
+        r2 = f(1, 2, 3)
+        shutil.rmtree("f")
+        end = time.time()
+        t2 = end - begin
+        self.assertEqual(r1, 6)
+        self.assertEqual(r2, 6)
+        self.assertGreater(t1, t2)
+        self.assertAlmostEqual(t1, 3.0, places=0)
+        self.assertNotAlmostEqual(t2, 3.0, places=0)
+
         begin = time.time()
         r1 = self.f(1, 2, 3)
         end = time.time()
