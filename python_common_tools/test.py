@@ -12,22 +12,23 @@ from python_common_tools.linux import get_bash_output, get_latest_commit_id
 from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_requests, secure_requests_json
 from python_common_tools.parallel import run_func_parallel
+import logging
 
 
 class TestLog(unittest.TestCase):
 
     def test_nofile_log(self):
         logger = setup_logger()
-        logger.info("hello")
-        logger.error("no")
+        logger.info("log info test")
+        logger.error("log error test")
 
     def test_log_file(self):
         logger = setup_logger("test.log")
-        logger.info("hello")
-        logger.error("no")
+        logger.info("log info test")
+        logger.error("log error test")
         with open("test.log") as f:
             s = f.read()
-            logger.info(f"The length of the logger file is {len(s)}")
+            # logger.info(f"The length of the logger file is {len(s)}")
             self.assertGreater(len(s), 0)
         os.remove("test.log")
 
@@ -35,7 +36,7 @@ class TestLog(unittest.TestCase):
 class TestNetwork(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.logger = setup_logger()
+        self.logger = logging.getLogger("python_common_tools.test")
 
     def test_secure_get_json(self):
         url = 'https://m.douban.com/j/puppy/frodo_landing?include=anony_home'
@@ -153,7 +154,7 @@ def test_callback_func(i, r, callback_func_extra_kwargs):
 
 class TestRunFuncParallel(unittest.TestCase):
     def setUp(self) -> None:
-        self.logger = setup_logger()
+        self.logger = logging.getLogger("python_common_tools.test")
 
     def test_run_func_parallel(self):
         func_args_list1 = list(range(10))

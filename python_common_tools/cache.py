@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 __author__ = '陈章'
 __date__ = '2019-04-25 11:34'
+import logging
 import os
 import pickle
 from datetime import datetime
 from functools import wraps
 from urllib.parse import quote_plus
 
-from logzero import logger
+logger = logging.getLogger("python_common_tools")
 
 from python_common_tools.compress import get_md5
 

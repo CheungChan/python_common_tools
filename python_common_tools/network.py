@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 __author__ = '陈章'
 __date__ = '2019-04-24 19:39'
+import logging
 import time
 from json.decoder import JSONDecodeError
 
 import requests
 import stackprinter
-from logzero import logger
 from requests.exceptions import ReadTimeout, ConnectionError
+
+logger = logging.getLogger("python_common_tools")
 
 
 class IRequest:
