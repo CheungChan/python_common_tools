@@ -49,7 +49,7 @@ webencodings==0.5.1
 install_requires = [i for i in requirements.split() if i]
 setup(
     name='python_common_tools',
-    version='2.0.5',
+    version='2.0.6',
     python_requires='>3.4.0',
     author='chenzhang',
     author_email='1377699408@qq.com',
