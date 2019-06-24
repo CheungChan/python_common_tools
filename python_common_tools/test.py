@@ -28,7 +28,6 @@ class TestLog(unittest.TestCase):
         logger.error("log error test")
         with open("test.log") as f:
             s = f.read()
-            # logger.info(f"The length of the logger file is {len(s)}")
             self.assertGreater(len(s), 0)
         os.remove("test.log")
 
@@ -149,7 +148,7 @@ def test_func2(i, j):
 
 def test_callback_func(i, r, callback_func_extra_kwargs):
     logger = callback_func_extra_kwargs["logger"]
-    logger.info(f"i={i},r={r}")
+    logger.info("i={i},r={r}".format(i=i,r=r))
 
 
 class TestRunFuncParallel(unittest.TestCase):

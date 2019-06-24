@@ -34,7 +34,8 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},kwargs={kwargs} ReadTimeout retrying {retry}")
+                logger.error("url={url},kwargs={kwargs} ReadTimeout retrying {retry}".format(url=url, kwargs=kwargs,
+                                                                                             retry=retry))
             except ConnectionError as e:
                 if log_err:
                     logger.error(stackprinter.format(e))
@@ -42,16 +43,18 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},kwargs={kwargs} ConnectionError retrying {retry}")
+                logger.error("url={url},kwargs={kwargs} ConnectionError retrying {retry}".format(url=url, kwargs=kwargs,
+                                                                                                 retry=retry))
             except JSONDecodeError as e:
                 if log_err:
                     logger.error(stackprinter.format(e))
-                logger.error(f"text={response.text}")
+                logger.error("text={text}".format(text=response.text))
                 time.sleep(2)
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},kwargs={kwargs} JSONDecodeError retrying {retry}")
+                logger.error("url={url},kwargs={kwargs} JSONDecodeError retrying {retry}".format(url=url, kwargs=kwargs,
+                                                                                                 retry=retry))
         return j
 
     @classmethod
@@ -72,7 +75,8 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},kwargs={kwargs} ReadTimeout retrying {retry}")
+                logger.error("url={url},kwargs={kwargs} ReadTimeout retrying {retry}".format(url=url, kwargs=kwargs,
+                                                                                             retry=retry))
             except ConnectionError as e:
                 if log_err:
                     logger.error(stackprinter.format(e))
@@ -80,7 +84,8 @@ class IRequest:
                 retry -= 1
                 if retry < 0:
                     break
-                logger.error(f"url={url},kwargs={kwargs} ConnectionError retrying {retry}")
+                logger.error("url={url},kwargs={kwargs} ConnectionError retrying {retry}".format(url=url, kwargs=kwargs,
+                                                                                                 retry=retry))
         return response
 
 
