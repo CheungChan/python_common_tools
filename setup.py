@@ -49,7 +49,7 @@ webencodings==0.5.1
 install_requires = [i for i in requirements.split() if i]
 setup(
     name='python_common_tools',
-    version='2.0.7',
+    version='2.0.8',
     python_requires='>3.4.0',
     author='chenzhang',
     author_email='1377699408@qq.com',
@@ -60,7 +60,7 @@ setup(
     packages=['python_common_tools'],
     install_requires=requirements,
     entry_points={
-        "console_scripts": "test_pct=python_common_tools.test:main"
+        "console_scripts": "az_auto_reload=python_common_tools.autoreload:main"
     },
     # 个人shell工具
     scripts=['python_common_tools/bin/az_kill.sh', "python_common_tools/bin/az_nohup_start.sh",
