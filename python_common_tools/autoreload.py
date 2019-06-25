@@ -24,11 +24,13 @@ def print_stdout(process):
 
 
 def main():
-    # We concatenate all of the arguments together, and treat that as the command to run
-    command = ' '.join(sys.argv[1:])
-
     # The path to watch
-    path = '.'
+    watch_path = sys.argv[1]
+    # We concatenate all of the arguments together, and treat that as the command to run
+    command = ' '.join(sys.argv[2:])
+
+    print("path = {watch_path}".format(watch_path=watch_path))
+    print("command = {command}".format(command=command))
 
     # How often we check the filesystem for changes (in seconds)
     wait = 1
@@ -38,13 +40,13 @@ def main():
 
     # The current maximum file modified time under the watched directory
 
-    last_mtime = max(file_times(path))
+    last_mtime = max(file_times(watch_path))
     while True:
-        max_mtime = max(file_times(path))
+        max_mtime = max(file_times(watch_path))
         print_stdout(process)
         if max_mtime > last_mtime:
             last_mtime = max_mtime
-            print('Restarting process: {}'.format(command))
+            print('Restarting process, command: {}'.format(command))
             process.kill()
             process = subprocess.Popen(command, shell=True)
         time.sleep(wait)
