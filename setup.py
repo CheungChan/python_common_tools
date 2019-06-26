@@ -2,7 +2,7 @@
 __author__ = '陈章'
 __date__ = '2019-05-06 17:46'
 
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
 import ssl
 
@@ -49,7 +49,7 @@ webencodings==0.5.1
 install_requires = [i for i in requirements.split() if i]
 setup(
     name='python_common_tools',
-    version='2.0.9',
+    version='2.0.10',
     python_requires='>3.4.0',
     author='chenzhang',
     author_email='1377699408@qq.com',
@@ -57,7 +57,7 @@ setup(
     description='python common tools',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=['python_common_tools'],
+    packages=find_packages(),
     install_requires=requirements,
     entry_points={
         "console_scripts": "az_auto_reload=python_common_tools.autoreload:main"
