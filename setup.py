@@ -28,7 +28,6 @@ flake8==3.7.7
 idna==2.8
 logzero==1.5.0
 mccabe==0.6.1
-paramiko==2.5.0
 pkginfo==1.5.0.1
 pyasn1==0.4.5
 pycodestyle==2.5.0
@@ -41,7 +40,7 @@ requests==2.22.0
 requests-toolbelt==0.9.1
 six==1.12.0
 stackprinter==0.2.3
-tqdm==4.32.1
+tqdm==4.32.2
 twine==1.13.0
 urllib3==1.24.2
 webencodings==0.5.1
@@ -49,7 +48,7 @@ webencodings==0.5.1
 install_requires = [i for i in requirements.split() if i]
 setup(
     name='python_common_tools',
-    version='2.0.10',
+    version='2.0.11',
     python_requires='>3.4.0',
     author='chenzhang',
     author_email='1377699408@qq.com',
@@ -58,7 +57,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
-    install_requires=requirements,
+    install_requires=install_requires,
     entry_points={
         "console_scripts": "az_auto_reload=python_common_tools.autoreload:main"
     },
