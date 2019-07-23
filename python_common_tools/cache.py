@@ -16,7 +16,7 @@ from python_common_tools.compress import get_md5
 class Cache:
 
     @classmethod
-    def cache_function(cls, cache_dir, is_method=False):
+    def cache_function(cls, cache_dir, is_method=False, before_func=None, end_func=None):
         def outer(f):
             @wraps(f)
             def inner(*args, **kwargs):
@@ -26,7 +26,11 @@ class Cache:
                 cache_dir_real = '{cache_dir}/{fname}'.format(cache_dir=cache_dir, fname=fname)
                 os.makedirs(cache_dir_real, exist_ok=True)
                 cache_file = '{cache_dir_real}/{name}.pkl'.format(cache_dir_real=cache_dir_real, name=get_md5(argv_str))
+                if before_func:
+                    before_func()
                 r = cls.exec_func(cache_file, fname, f, args, kwargs)
+                if end_func:
+                    end_func()
                 return r
 
             return inner
@@ -51,7 +55,7 @@ class Cache:
         return r
 
     @classmethod
-    def cache_daily_function(cls, cache_dir, is_method=False):
+    def cache_daily_function(cls, cache_dir, is_method=False, before_func=None, end_func=None):
         def outer(f):
             @wraps(f)
             def inner(*args, **kwargs):
@@ -62,7 +66,11 @@ class Cache:
                 cache_dir_real = '{cache_dir}/{fname}/{today}'.format(cache_dir=cache_dir, fname=fname, today=today)
                 os.makedirs(cache_dir_real, exist_ok=True)
                 cache_file = '{cache_dir_real}/{name}.pkl'.format(cache_dir_real=cache_dir_real, name=get_md5(argv_str))
+                if before_func:
+                    before_func()
                 r = cls.exec_func(cache_file, fname, f, args, kwargs)
+                if end_func:
+                    end_func()
                 return r
 
             return inner
