@@ -37,6 +37,6 @@ setup(
     },
     # 个人shell工具
     scripts=['python_common_tools/bin/az_kill.sh', "python_common_tools/bin/az_nohup_start.sh",
-             "python_common_tools/bin/az_ps_check.sh", "python_common_tools/bin/az_scp_from.sh"
-                                                       "python_common_tools/bin/az_scp_to.sh"],
+             "python_common_tools/bin/az_ps_check.sh", "python_common_tools/bin/az_scp_from.sh",
+             "python_common_tools/bin/az_scp_to.sh"],
 )
