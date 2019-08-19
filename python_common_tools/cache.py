@@ -90,6 +90,27 @@ class Cache:
         pickle.dump(r, w_cache_file)
         w_cache_file.close()
 
+    @classmethod
+    def is_cached_or_not(cls, cache_dir, is_method=False):
+        def outer(f):
+            @wraps(f)
+            def inner(*args, **kwargs):
+                # prepare cache_file
+                fname = f.__qualname__
+                argv_str = cls.get_argv_str(args, kwargs, is_method)
+                cache_dir_real = '{cache_dir}/{fname}'.format(cache_dir=cache_dir, fname=fname)
+                os.makedirs(cache_dir_real, exist_ok=True)
+                cache_file = '{cache_dir_real}/{name}.pkl'.format(cache_dir_real=cache_dir_real, name=get_md5(argv_str))
+                if os.path.exists(cache_file):
+                    return True
+                cls.exec_func(cache_file, fname, f, args, kwargs)
+                return False
+
+            return inner
+
+        return outer
+
 
 cache_function = Cache.cache_function
 cache_daily_function = Cache.cache_daily_function
+is_cache_or_not = Cache.is_cached_or_not

@@ -7,7 +7,7 @@ import shutil
 import time
 import unittest
 
-from python_common_tools.cache import cache_function, cache_daily_function
+from python_common_tools.cache import cache_function, cache_daily_function, is_cache_or_not
 from python_common_tools.linux import get_bash_output, get_latest_commit_id
 from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_requests, secure_requests_json
@@ -121,6 +121,17 @@ class TestCache(unittest.TestCase):
         self.assertGreater(t1, t2)
         self.assertAlmostEqual(t1, 3.0, places=0)
         self.assertNotAlmostEqual(t2, 3.0, places=0)
+
+    @is_cache_or_not(".", is_method=True)
+    def f3(self, a):
+        print("a=" + str(a))
+
+    def test_is_cache_or_not(self):
+        b = self.f3(1)
+        self.assertFalse(b)
+        b = self.f3(1)
+        self.assertTrue(b)
+        shutil.rmtree("TestCache.f3")
 
 
 class TestLinux(unittest.TestCase):
