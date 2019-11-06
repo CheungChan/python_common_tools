@@ -15,6 +15,7 @@ class RedisQueue(object):
             RedisQueue.pool = redis.ConnectionPool(
                 host=host, port=port, decode_responses=True
             )
+        logger.info("get redis conn {host}:{port}".format(host=host, port=port))
         self.__db = redis.Redis(connection_pool=RedisQueue.pool)
         self.key = key
 
