@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = '陈章'
-__date__ = '2019-06-25 15:25'
+__author__ = "陈章"
+__date__ = "2019-06-25 15:25"
 
 import os
 import subprocess
@@ -27,7 +27,7 @@ def main():
     # The path to watch
     watch_path = sys.argv[1]
     # We concatenate all of the arguments together, and treat that as the command to run
-    command = ' '.join(sys.argv[2:])
+    command = " ".join(sys.argv[2:])
 
     print("path = {watch_path}".format(watch_path=watch_path))
     print("command = {command}".format(command=command))
@@ -46,11 +46,11 @@ def main():
         print_stdout(process)
         if max_mtime > last_mtime:
             last_mtime = max_mtime
-            print('Restarting process, command: {}'.format(command))
+            print("Restarting process, command: {}".format(command))
             process.kill()
             process = subprocess.Popen(command, shell=True)
         time.sleep(wait)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

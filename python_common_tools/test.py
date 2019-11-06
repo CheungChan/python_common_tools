@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
-__author__ = '陈章'
-__date__ = '2019-04-25 10:58'
+__author__ = "陈章"
+__date__ = "2019-04-25 10:58"
 
 import os
 import shutil
 import time
 import unittest
 
-from python_common_tools.cache import cache_function, cache_daily_function, is_cache_or_not
+from python_common_tools.cache import (
+    cache_function,
+    cache_daily_function,
+    is_cache_or_not,
+)
 from python_common_tools.linux import get_bash_output, get_latest_commit_id
 from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_requests, secure_requests_json
@@ -15,7 +19,6 @@ import logging
 
 
 class TestLog(unittest.TestCase):
-
     def test_nofile_log(self):
         logger = setup_logger()
         logger.info("log info test")
@@ -32,42 +35,40 @@ class TestLog(unittest.TestCase):
 
 
 class TestNetwork(unittest.TestCase):
-
     def setUp(self) -> None:
         self.logger = logging.getLogger("python_common_tools.test")
 
     def test_secure_get_json(self):
-        url = 'https://m.douban.com/j/puppy/frodo_landing?include=anony_home'
+        url = "https://m.douban.com/j/puppy/frodo_landing?include=anony_home"
         j = secure_requests_json(url)
         self.logger.info(j)
         self.assertIsNotNone(j)
 
     def test_secure_get(self):
-        url = 'https://www.baidu.com/'
+        url = "https://www.baidu.com/"
         r = secure_requests(url)
         self.logger.info(r.status_code)
 
 
-@cache_function('.')
+@cache_function(".")
 def f(a, b, c):
     time.sleep(3)
     return a + b + c
 
 
-@cache_daily_function('.')
+@cache_daily_function(".")
 def f2(a, b, c):
     time.sleep(3)
     return a + b + c
 
 
 class TestCache(unittest.TestCase):
-
-    @cache_function('.', is_method=True)
+    @cache_function(".", is_method=True)
     def f(self, a, b, c):
         time.sleep(3)
         return a + b + c
 
-    @cache_daily_function('.', is_method=True)
+    @cache_daily_function(".", is_method=True)
     def f2(self, a, b, c):
         time.sleep(3)
         return a + b + c
@@ -135,7 +136,6 @@ class TestCache(unittest.TestCase):
 
 
 class TestLinux(unittest.TestCase):
-
     def test_get_bash_output(self):
         output = get_bash_output(["echo", "hello"])
         self.assertEqual(output, "hello\n")
@@ -165,5 +165,5 @@ def main():
     unittest.main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

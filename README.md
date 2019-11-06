@@ -2,7 +2,7 @@
 
 #### 安装
 ```bash
-pip3 install python_common_tools 
+pip3 install python_common_tools
 ```
 
 #### 使用
@@ -18,7 +18,7 @@ from python_common_tools.cache import cache_function,cache_daily_function
 def f(self, a, b, c):
     time.sleep(3)
     return a + b + c
-    
+
 @cache_daily_function('.')
 def f2(self, a, b, c):
     time.sleep(3)
