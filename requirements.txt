@@ -3,3 +3,4 @@ stackprinter
 tqdm
 redis
 pre-commit
+ipython
