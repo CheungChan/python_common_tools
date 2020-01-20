@@ -14,7 +14,6 @@ else:
     long_description = "python common tools"
 
 requirements = """
-logzero
 requests
 stackprinter
 tqdm

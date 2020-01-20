@@ -13,25 +13,8 @@ from python_common_tools.cache import (
     is_cache_or_not,
 )
 from python_common_tools.linux import get_bash_output, get_latest_commit_id
-from python_common_tools.log import setup_logger
 from python_common_tools.network import secure_requests, secure_requests_json
 import logging
-
-
-class TestLog(unittest.TestCase):
-    def test_nofile_log(self):
-        logger = setup_logger()
-        logger.info("log info test")
-        logger.error("log error test")
-
-    def test_log_file(self):
-        logger = setup_logger("test.log")
-        logger.info("log info test")
-        logger.error("log error test")
-        with open("test.log") as f:
-            s = f.read()
-            self.assertGreater(len(s), 0)
-        os.remove("test.log")
 
 
 class TestNetwork(unittest.TestCase):
