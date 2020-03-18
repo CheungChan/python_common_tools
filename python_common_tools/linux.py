@@ -29,6 +29,38 @@ class Git:
         return Bash.get_bash_output(cmd.split())
 
 
+class DownloadCode:
+    @classmethod
+    def download_code(cls):
+        code = """
+# save in web.py
+# python >= 3.6
+# pip install aiofiles fastapi uvicorn
+import os
+
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
+
+
+
+app = FastAPI()
+
+@app.get("/d/{p:path}")
+async def download(p: str):
+    if not os.path.exists(p):
+        raise HTTPException(status_code=404, detail={"reason": f"{p}不存在","dir": os.path.abspath('.'), "files": os.listdir()})
+    if not os.path.isfile(p):
+        raise HTTPException(status_code=400, detail={"reason": f"{p}不是文件", "dir": os.path.abspath(p), "files": os.listdir(p)})
+    return FileResponse(p)
+if __name__ == '__main__':
+    uvicorn.run("web:app", host='0.0.0.0', port=8002, reload=True)
+
+"""
+        print(code)
+
+
 get_bash_output = Bash.get_bash_output
 open_remote_file = Bash.open_remote_file
 get_latest_commit_id = Git.get_latest_commit_id
+download_code = DownloadCode.download_code
