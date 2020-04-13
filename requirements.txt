@@ -5,3 +5,5 @@ redis
 pre-commit
 ipython
 pandas
+DBUtils
+pymysql
