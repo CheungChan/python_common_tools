@@ -10,10 +10,10 @@ logger = logging.getLogger("python_common_tools")
 
 
 class RedisQueue(object):
-    def __init__(self, key, host="localhost", port="6379"):
+    def __init__(self, key, host="localhost", port="6379", password="", db=0):
         if not hasattr(RedisQueue, "pool"):
             RedisQueue.pool = redis.ConnectionPool(
-                host=host, port=port, decode_responses=True
+                host=host, port=port, decode_responses=True, password=password, db=db
             )
         logger.info("get redis conn {host}:{port}".format(host=host, port=port))
         self.__db = redis.Redis(connection_pool=RedisQueue.pool)
