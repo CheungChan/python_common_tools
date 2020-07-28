@@ -7,6 +7,7 @@ import pickle
 from datetime import datetime
 from functools import wraps
 from urllib.parse import quote_plus
+import asyncio
 
 logger = logging.getLogger("python_common_tools")
 
@@ -105,6 +106,9 @@ class Cache:
 
     @classmethod
     def write_to_cache_file(cls, cache_file, r):
+        parent = os.path.dirname(cache_file)
+        if not os.path.exists(parent):
+            os.makedirs(parent)
         w_cache_file = open(cache_file, "wb")
         pickle.dump(r, w_cache_file)
         w_cache_file.close()
