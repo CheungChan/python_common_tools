@@ -7,7 +7,6 @@ import pickle
 from datetime import datetime
 from functools import wraps
 from urllib.parse import quote_plus
-import asyncio
 
 logger = logging.getLogger("python_common_tools")
 

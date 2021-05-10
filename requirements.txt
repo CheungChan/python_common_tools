@@ -1,6 +1,4 @@
 requests-html
 tqdm
-redis
-pandas
 DBUtils
 pymysql
