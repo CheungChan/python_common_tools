@@ -27,7 +27,7 @@ pymysql
 install_requires = [i for i in requirements.split() if i]
 setup(
     name="python_common_tools",
-    version="2.5.1",
+    version="2.5.2",
     python_requires=">3.5.0",
     author="chenzhang",
     author_email="1377699408@qq.com",

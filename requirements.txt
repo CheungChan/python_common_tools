@@ -1,4 +1,2 @@
 requests-html
 tqdm
-DBUtils
-pymysql
