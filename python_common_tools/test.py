@@ -2,7 +2,6 @@
 __author__ = "陈章"
 __date__ = "2019-04-25 10:58"
 
-import os
 import shutil
 import time
 import unittest
@@ -13,24 +12,6 @@ from python_common_tools.cache import (
     is_cache_or_not,
 )
 from python_common_tools.linux import get_bash_output, get_latest_commit_id
-from python_common_tools.network import secure_requests, secure_requests_json
-import logging
-
-
-class TestNetwork(unittest.TestCase):
-    def setUp(self) -> None:
-        self.logger = logging.getLogger("python_common_tools.test")
-
-    def test_secure_get_json(self):
-        url = "https://m.douban.com/j/puppy/frodo_landing?include=anony_home"
-        j = secure_requests_json(url)
-        self.logger.info(j)
-        self.assertIsNotNone(j)
-
-    def test_secure_get(self):
-        url = "https://www.baidu.com/"
-        r = secure_requests(url)
-        self.logger.info(r.status_code)
 
 
 @cache_function(".")

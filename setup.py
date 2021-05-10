@@ -27,7 +27,7 @@ pymysql
 install_requires = [i for i in requirements.split() if i]
 setup(
     name="python_common_tools",
-    version="2.4.3",
+    version="2.5",
     python_requires=">3.5.0",
     author="chenzhang",
     author_email="1377699408@qq.com",
@@ -41,8 +41,8 @@ setup(
         "console_scripts": "az_auto_reload=python_common_tools.autoreload:main"
     },
     # 个人shell工具
-    scripts=[
-        "python_common_tools/bin/az_kill.sh",
-        "python_common_tools/bin/az_nohup_start.sh",
-    ],
+    # scripts=[
+    #     "python_common_tools/bin/az_kill.sh",
+    #     "python_common_tools/bin/az_nohup_start.sh",
+    # ],
 )
